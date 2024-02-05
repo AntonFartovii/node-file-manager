@@ -18,12 +18,12 @@ export class FileManager {
   setUsername() {
     const argv = process.argv.slice(2).toString().trim();
     this.userName = !argv.startsWith('--') ?
-      'Unknown' :
+      'Unknown user' :
       argv.split('=')[1];
   }
 
   init() {
-    stdout.write(messages.welcome + ' ' + this.userName || 'Unknown user');
+    stdout.write(messages.welcome + ' ' + this.userName + '!\n');
     stdout.write(messages.curDir);
   }
 
@@ -42,6 +42,10 @@ export class FileManager {
 
   async execCommand(name, args) {
     await this.function[name](args);
+  }
+
+  useCommandRouter(router) {
+    this.function = { ...this.function, ...router };
   }
 
   on(command, fn) {
