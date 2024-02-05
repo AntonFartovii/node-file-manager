@@ -10,6 +10,10 @@ export class FileManager {
     this.init();
   }
 
+  getUserName() {
+    return this.userName;
+  }
+
   prepare() {
     this.setStartingDir();
     this.setUsername();
@@ -23,10 +27,10 @@ export class FileManager {
   }
 
   init() {
-    stdout.write(messages.welcome + ' ' + this.userName + '!\n');
-    stdout.write(messages.curDir);
+    stdout.write(messages.welcome(this.userName));
+    stdout.write(messages.curDir());
     this.function['.exit'] = () => {
-      process.stdout.write(messages.bye + this.userName + '!\n');
+      process.stdout.write(messages.bye(this.userName));
       process.exit(0);
     }
   }

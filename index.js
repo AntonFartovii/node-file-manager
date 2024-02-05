@@ -9,6 +9,7 @@ const readline = createInterface({input, output});
 
 const fileManager = new FileManager();
 fileManager.useCommandRouter(commandsRouter);
+const userName = fileManager.userName;
 
 readline.on('line', async (data) => {
     readline.pause();
@@ -18,22 +19,21 @@ readline.on('line', async (data) => {
     } catch (error) {
         output.write(messages.inval);
     }
-    output.write(messages.curDir);
+    output.write(messages.curDir());
     readline.prompt();
-})
+});
 
 readline.on('SIGINT', () => {
+    output.write(messages.bye(userName));
     readline.close();
-})
+});
 
 readline.on('close', () => {
     process.exit(0);
-})
+});
 
 readline.on('error', () => {
 });
 
 process.on('exit', () => {
 });
-
-
