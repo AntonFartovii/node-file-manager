@@ -5,7 +5,7 @@ import {stdout} from 'node:process';
 
 export const rm = async (args) => {
   let [from, ...empty] = args;
-  if ( from.length === 0 || empty.length ) {
+  if (!from || empty.length) {
     return stdout.write(messages.inval);
   }
 

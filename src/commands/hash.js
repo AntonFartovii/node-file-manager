@@ -8,7 +8,7 @@ import {messages} from '../messages.js';
 export const hash = async (args) => {
 
     let [from, ...empty] = args;
-    if (from.length === 0 || empty.length) {
+    if (!from || empty.length) {
         return stdout.write(messages.inval)
     }
     let filePath = resolve(from);
@@ -21,7 +21,6 @@ export const hash = async (args) => {
 
     let content = '';
     stream.on('error',() => {
-        return stdout.write(messages.fail);
     });
 
     stream.on('data',  (chunk)=> {
@@ -32,7 +31,7 @@ export const hash = async (args) => {
         const hash = createHash('sha256').update(content).digest('hex');
         stdout.write (`File's hash:\n`);
         stdout.write (hash + '\n' );
-        return stdout.write(messages.curDir)
+        return stdout.write(messages.curDir())
     });
 }
 

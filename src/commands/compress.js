@@ -9,7 +9,7 @@ import {messages} from '../messages.js';
 export const compress = async (args) => {
 
     const [from, to, ...empty] = args;
-    if (to.length === 0 || from.length === 0 || empty.length) {
+    if (!to || !from || empty.length) {
         return stdout.write(messages.inval);
     }
     try {

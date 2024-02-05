@@ -6,7 +6,7 @@ import {messages} from '../messages.js';
 
 export const cat = async (args) => {
     let [from, ...empty] = args;
-    if ( from.length === 0 || empty.length ) {
+    if (!from || empty.length ) {
         return stdout.write(messages.inval);
     }
 
@@ -27,15 +27,14 @@ export const cat = async (args) => {
     stream.on('end', () => {
         stdout.write (`File's content:\n`);
         stdout.write (body + '\n');
-        return stdout.write(messages.curDir);
+        return stdout.write(messages.curDir());
     });
 
     stream.on('error', () => {
-        return stdout.write(messages.fail);
     });
 
     stream.on('finish', () => {
-        return stdout.write(messages.curDir);
+        return stdout.write(messages.curDir());
     });
 }
 

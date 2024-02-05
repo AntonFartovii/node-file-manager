@@ -7,7 +7,7 @@ import {messages} from '../messages.js';
 export const add = async (args) => {
 
     let [from, ...empty] = args;
-    if (from.length === 0 || empty.length) {
+    if (!from || empty.length) {
         return stdout.write(messages.inval);
     }
 

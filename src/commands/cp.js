@@ -7,11 +7,12 @@ import {stdout} from 'node:process';
 
 export const cp = async (args, deleteFrom= false) => {
     const [from, to, ...empty] = args;
-    const filename = getFileName(from);
 
-    if (to.length === 0 || from.length === 0 || empty.length ) {
+    if (!to || !from || empty.length ) {
         return stdout.write(messages.inval);
     }
+
+    const filename = getFileName(from);
     try {
         await access(resolve(from));
         await access(resolve(to));
@@ -31,7 +32,7 @@ export const cp = async (args, deleteFrom= false) => {
             writeStream.end();
         });
     } catch  {
-        return stdout.write(messages.fail)
+        stdout.write(messages.fail);
     }
 }
 

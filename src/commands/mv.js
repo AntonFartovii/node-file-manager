@@ -8,11 +8,13 @@ import {stdout} from 'node:process';
 
 export const mv = async (args) => {
         const [from, to, ...empty] = args;
-        const filename = getFileName(from);
 
-        if (to.length === 0 || from.length === 0 || empty.length) {
+        if (!to || !from || empty.length) {
                 return stdout.write(messages.inval);
         }
+
+        const filename = getFileName(from);
+
         try {
                 await access(resolve(from));
                 await access(resolve(to));
@@ -45,3 +47,5 @@ export const mv = async (args) => {
 
 // mv path_to_file path_to_new_directory
 // Move file (same as copy but initial file is deleted, copying part should be done using Readable and Writable streams):
+
+// mv C:/Users/anton/Test/555.txt C:/Users/anton/Test2/555.txt

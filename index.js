@@ -14,17 +14,12 @@ const userName = fileManager.userName;
 readline.on('line', async (data) => {
     readline.pause();
     const [command, ...args] = parseArgs(data);
-    try {
-        await fileManager.execCommand(command, args);
-    } catch (error) {
-        output.write(messages.inval);
-    }
+    await fileManager.execCommand(command, args);
     output.write(messages.curDir());
     readline.prompt();
 });
 
 readline.on('SIGINT', () => {
-    output.write(messages.bye(userName));
     readline.close();
 });
 
@@ -33,7 +28,9 @@ readline.on('close', () => {
 });
 
 readline.on('error', () => {
+    output.write(messages.fatal);
 });
 
 process.on('exit', () => {
+    output.write(messages.bye(userName));
 });

@@ -30,7 +30,6 @@ export class FileManager {
     stdout.write(messages.welcome(this.userName));
     stdout.write(messages.curDir());
     this.function['.exit'] = () => {
-      process.stdout.write(messages.bye(this.userName));
       process.exit(0);
     }
   }
@@ -49,7 +48,11 @@ export class FileManager {
   }
 
   async execCommand(name, args) {
-    await this.function[name](args);
+   try {
+     await this.function[name](args);
+   } catch {
+     stdout.write(messages.inval);
+   }
   }
 
   useCommandRouter(router) {
