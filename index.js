@@ -5,21 +5,20 @@ import process from 'node:process';
 const readline = createInterface({input, output});
 readline.on('line', async (data) => {
     readline.pause();
-
 })
 
 readline.on('SIGINT', () => {
     readline.close();
 })
 
-readline.on ('close',  () => {
+readline.on('close', () => {
     process.exit(0);
 })
 
-readline.on ('error',  ()=> {
+readline.on('error', () => {
 });
 
 process.on('exit', () => {
-})
+});
 
 
