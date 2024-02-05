@@ -1,3 +1,12 @@
+import {messages} from "./messages.js";
+import {stat} from 'fs/promises';
+import {stdout} from 'node:process';
+
+export async function checkFile(filePath) {
+  let stats = await stat(filePath);
+  return stats.isFile();
+}
+
 export function getFileName(filePath) {
   let str = filePath.replace(/\\/g, '/');
   return  str.split('/').at(-1);
@@ -33,3 +42,4 @@ export function parseArgs(str) {
   arg(str);
   return acc;
 }
+

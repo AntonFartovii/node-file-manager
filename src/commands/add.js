@@ -13,7 +13,7 @@ export const add = async (args) => {
 
     const filePath = resolve(from);
     try {
-        await access( filePath, constants.F_OK);
+        await access(filePath, constants.F_OK);
     } catch {
         const writeStream = createWriteStream(filePath);
         writeStream.on('error', () => {

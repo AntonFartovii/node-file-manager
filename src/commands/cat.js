@@ -1,19 +1,17 @@
 import {stdout} from 'node:process';
 import {createReadStream} from 'fs';
 import {resolve} from 'path';
-import {access} from 'fs/promises';
 import {messages} from '../messages.js';
+import {checkFile} from "../utils.js";
 
 export const cat = async (args) => {
     let [from, ...empty] = args;
     if (!from || empty.length ) {
         return stdout.write(messages.inval);
     }
-
     const filePath = resolve(from);
-    try {
-        await access(filePath);
-    } catch {
+    const isFile = await checkFile(filePath);
+    if (!isFile) {
         stdout.write(messages.fail);
     }
 

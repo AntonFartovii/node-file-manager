@@ -4,6 +4,7 @@ import {createReadStream, createWriteStream} from 'fs';
 import {getFileName} from '../utils.js';
 import {messages} from '../messages.js';
 import {stdout} from 'node:process';
+import {stat} from 'fs/promises';
 
 export const cp = async (args, deleteFrom= false) => {
     const [from, to, ...empty] = args;
@@ -14,7 +15,10 @@ export const cp = async (args, deleteFrom= false) => {
 
     const filename = getFileName(from);
     try {
-        await access(resolve(from));
+        let stats = await stat(from);
+        if (!stats.isFile()) {
+            return stdout.write(messages.fail);
+        }
         await access(resolve(to));
         const readStream  = createReadStream(resolve(from));
         const writeStream = createWriteStream(resolve(to, filename));

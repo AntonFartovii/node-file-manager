@@ -2,6 +2,7 @@ import {unlink, access} from 'fs/promises';
 import {resolve} from 'path';
 import {messages} from '../messages.js';
 import {stdout} from 'node:process';
+import {checkFile} from "../utils.js";
 
 export const rm = async (args) => {
   let [from, ...empty] = args;
@@ -11,6 +12,10 @@ export const rm = async (args) => {
 
   const filePath = resolve(from);
   try {
+    const isFile = await checkFile(from);
+    if (!isFile) {
+      return stdout.write(messages.fail);
+    }
     await access(filePath);
   } catch {
     return stdout.write(messages.fail);

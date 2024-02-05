@@ -2,9 +2,10 @@ import {createBrotliDecompress} from 'zlib';
 import {createReadStream, createWriteStream} from 'fs';
 import {access} from 'fs/promises';
 import {resolve} from 'path';
-import {getFileName} from '../utils.js';
+import {checkFile, getFileName} from '../utils.js';
 import {messages} from '../messages.js';
 import {stdout} from 'node:process';
+import {stat} from 'fs/promises';
 
 export const decompress = async (args) => {
 
@@ -13,7 +14,10 @@ export const decompress = async (args) => {
         return stdout.write(messages.inval);
     }
     try {
-        await access(resolve(from));
+        const isFile = await checkFile(from);
+        if (!isFile) {
+            return stdout.write(messages.fail);
+        }
         await access(resolve(to));
     } catch {
         return stdout.write(messages.fail);

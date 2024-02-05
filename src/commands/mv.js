@@ -1,7 +1,7 @@
 import {unlink} from 'fs/promises';
 import {resolve} from 'path';
 import {createReadStream, createWriteStream} from 'fs';
-import {getFileName} from '../utils.js';
+import {checkFile, getFileName} from '../utils.js';
 import {access} from 'fs/promises';
 import {messages} from '../messages.js';
 import {stdout} from 'node:process';
@@ -16,7 +16,10 @@ export const mv = async (args) => {
         const filename = getFileName(from);
 
         try {
-                await access(resolve(from));
+                const isFile = await checkFile(from);
+                if (!isFile) {
+                        return stdout.write(messages.fail);
+                }
                 await access(resolve(to));
                 const readStream  = createReadStream(resolve(from));
                 const writeStream = createWriteStream(resolve(to, filename));

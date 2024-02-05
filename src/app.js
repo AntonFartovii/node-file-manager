@@ -21,9 +21,12 @@ export class FileManager {
 
   setUsername() {
     const argv = process.argv.slice(2).toString().trim();
-    this.userName = !argv.startsWith('--') ?
-      'Unknown user' :
-      argv.split('=')[1];
+    if (!argv.startsWith('--')) {
+      this.userName = 'Unknown user';
+    } else {
+      const value = argv.split('=')[1];
+      this.userName = value ? value : 'Unknown user';
+    }
   }
 
   init() {

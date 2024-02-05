@@ -2,8 +2,8 @@ import {createReadStream} from 'fs'
 import {stdout} from 'node:process';
 import {resolve} from 'path';
 import {createHash} from 'crypto';
-import {access} from 'fs/promises';
 import {messages} from '../messages.js';
+import {checkFile} from "../utils.js";
 
 export const hash = async (args) => {
 
@@ -12,9 +12,8 @@ export const hash = async (args) => {
         return stdout.write(messages.inval)
     }
     let filePath = resolve(from);
-    try {
-        await access(filePath);
-    } catch {
+    const isFile = await checkFile(from);
+    if (!isFile) {
         return stdout.write(messages.fail);
     }
     const stream = createReadStream(filePath);

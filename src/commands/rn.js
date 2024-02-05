@@ -1,7 +1,8 @@
-import {rename, access} from 'fs/promises';
+import {rename} from 'fs/promises';
 import {resolve} from 'path';
 import {messages} from '../messages.js';
 import {stdout} from 'node:process';
+import {checkFile} from "../utils.js";
 
 export const rn = async(args) => {
   let [from, to, ...empty] = args;
@@ -10,7 +11,10 @@ export const rn = async(args) => {
     return stdout.write(messages.inval)
   }
   try {
-    await access (resolve(from));
+    const isFile = await checkFile(from);
+    if (!isFile) {
+      return stdout.write(messages.fail);
+    }
     await rename(resolve(from), resolve(to));
   } catch {
     return stdout.write(messages.fail);
