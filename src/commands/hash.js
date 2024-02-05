@@ -3,7 +3,7 @@ import {stdout} from 'node:process';
 import {resolve} from 'path';
 import {createHash} from 'crypto';
 import {messages} from '../messages.js';
-import {checkFile} from "../utils.js";
+import {checkFile} from '../utils.js';
 
 export const hash = async (args) => {
 
@@ -22,7 +22,7 @@ export const hash = async (args) => {
     stream.on('error',() => {
     });
 
-    stream.on('data',  (chunk)=> {
+    stream.on('data', (chunk)=> {
         content += chunk;
     });
 
@@ -30,7 +30,7 @@ export const hash = async (args) => {
         const hash = createHash('sha256').update(content).digest('hex');
         stdout.write (`File's hash:\n`);
         stdout.write (hash + '\n' );
-        return stdout.write(messages.curDir())
+        return stdout.write(messages.curDir());
     });
 }
 

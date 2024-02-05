@@ -12,5 +12,5 @@ export const messages = {
     'inval':  `Invalid input\n`,
     'fail':   `Operation failed\n`,
     'test':    `Testing...`,
-    'fatal': 'Fatal error!'
+    'fatal': 'Fatal error!',
 };

@@ -17,7 +17,7 @@ export const cat = async (args) => {
 
     const stream = createReadStream(filePath);
 
-    let body = ''
+    let body = '';
     stream.on('data', (chunk) => {
         body += chunk;
     });

@@ -22,8 +22,6 @@ export const add = async (args) => {
         writeStream.write('');
         writeStream.end('');
     }
-
-
 }
 
 // add new_file_name

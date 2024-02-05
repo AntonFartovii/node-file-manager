@@ -2,7 +2,7 @@ import {rename} from 'fs/promises';
 import {resolve} from 'path';
 import {messages} from '../messages.js';
 import {stdout} from 'node:process';
-import {checkFile} from "../utils.js";
+import {checkFile} from '../utils.js';
 
 export const rn = async(args) => {
   let [from, to, ...empty] = args;

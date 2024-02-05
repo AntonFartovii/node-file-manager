@@ -19,7 +19,7 @@ export const compress = async (args) => {
         }
         await access(resolve(to));
     } catch {
-        return stdout.write(messages.fail)
+        return stdout.write(messages.fail);
     }
     const fileName = getFileName(from);
     const brotli = createBrotliCompress();

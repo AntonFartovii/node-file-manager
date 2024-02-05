@@ -1,6 +1,4 @@
-import {messages} from "./messages.js";
 import {stat} from 'fs/promises';
-import {stdout} from 'node:process';
 
 export async function checkFile(filePath) {
   let stats = await stat(filePath);
