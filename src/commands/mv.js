@@ -11,7 +11,7 @@ export const mv = async (args) => {
         const filename = getFileName(from);
 
         if (to.length === 0 || from.length === 0 || empty.length) {
-                return stdout.write(messages.inval + '\n');
+                return stdout.write(messages.inval);
         }
         try {
                 await access(resolve(from));
@@ -20,7 +20,7 @@ export const mv = async (args) => {
                 const writeStream = createWriteStream(resolve(to, filename));
 
                 writeStream.on('error', () => {
-                        return stdout.write(messages.fail + '\n');
+                        return stdout.write(messages.fail);
                 });
 
                 readStream.on('data', (chunk) => {
@@ -28,7 +28,7 @@ export const mv = async (args) => {
                 });
 
                 readStream.on('error', () => {
-                        return stdout.write(messages.fail + '\n');
+                        return stdout.write(messages.fail);
                 });
 
                 readStream.on('end',  () => {
@@ -39,7 +39,7 @@ export const mv = async (args) => {
                         unlink(resolve(from));
                 });
         } catch  {
-                return stdout.write(messages.fail + '\n');
+                return stdout.write(messages.fail);
         }
 }
 

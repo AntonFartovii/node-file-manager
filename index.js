@@ -13,7 +13,6 @@ fileManager.useCommandRouter(commandsRouter);
 readline.on('line', async (data) => {
     readline.pause();
     const [command, ...args] = parseArgs(data);
-    console.log(command);
     try {
         await fileManager.execCommand(command, args);
     } catch (error) {

@@ -4,7 +4,7 @@ import {messages} from '../messages.js';
 
 export const ls = async (args) => {
     if (args.length ) {
-        return stdout.write(messages.inval + '\n')
+        return stdout.write(messages.inval)
     }
     const itemsList = await readdir (cwd(), {withFileTypes: true});
     const obj = {

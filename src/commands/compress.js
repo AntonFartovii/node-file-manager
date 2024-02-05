@@ -10,13 +10,13 @@ export const compress = async (args) => {
 
     const [from, to, ...empty] = args;
     if (to.length === 0 || from.length === 0 || empty.length) {
-        return stdout.write(messages.inval + '\n');
+        return stdout.write(messages.inval);
     }
     try {
         await access(resolve(from));
         await access(resolve(to));
     } catch {
-        return stdout.write(messages.fail + '\n')
+        return stdout.write(messages.fail)
     }
     const fileName = getFileName(from);
     const brotli = createBrotliCompress();

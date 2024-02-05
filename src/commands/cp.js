@@ -10,7 +10,7 @@ export const cp = async (args, deleteFrom= false) => {
     const filename = getFileName(from);
 
     if (to.length === 0 || from.length === 0 || empty.length ) {
-        return stdout.write(messages.inval + '\n');
+        return stdout.write(messages.inval);
     }
     try {
         await access(resolve(from));
@@ -19,19 +19,19 @@ export const cp = async (args, deleteFrom= false) => {
         const writeStream = createWriteStream(resolve(to, filename));
 
         writeStream.on('error', () => {
-            return stdout.write(messages.fail + '\n');
+            return stdout.write(messages.fail);
         })
         readStream.on('data', (chunk) => {
             writeStream.write(chunk);
         });
         readStream.on('error', () => {
-            return stdout.write(messages.fail + '\n');
+            return stdout.write(messages.fail);
         });
         readStream.on('end',  () => {
             writeStream.end();
         });
     } catch  {
-        return stdout.write(messages.fail + '\n')
+        return stdout.write(messages.fail)
     }
 }
 

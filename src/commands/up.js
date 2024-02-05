@@ -3,7 +3,7 @@ import {messages} from '../messages.js';
 
 export async function up(args) {
   if (args.length !== 0) {
-    return stdout.write(messages.inval + '\n');
+    return stdout.write(messages.inval);
   }
   await chdir('..');
 }

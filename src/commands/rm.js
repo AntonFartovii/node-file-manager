@@ -6,14 +6,14 @@ import {stdout} from 'node:process';
 export const rm = async (args) => {
   let [from, ...empty] = args;
   if ( from.length === 0 || empty.length ) {
-    return stdout.write(messages.inval + '\n');
+    return stdout.write(messages.inval);
   }
 
   const filePath = resolve(from);
   try {
     await access(filePath);
   } catch {
-    return stdout.write(messages.fail + '\n');
+    return stdout.write(messages.fail);
   }
   await unlink(filePath);
 }

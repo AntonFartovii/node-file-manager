@@ -32,7 +32,7 @@ export const osFn = async (args) => {
         break;
       }
       default:
-        return stdout.write(messages.inval + '\n');
+        return stdout.write(messages.inval);
         break;
     }
 }

@@ -1,5 +1,3 @@
-import process from 'node:process'
-
 import {cd} from './commands/cd.js';
 import {up} from './commands/up.js';
 import {add} from './commands/add.js';
@@ -24,9 +22,6 @@ export const commandsRouter = {
     'mv': mv,
     'rm': rm,
     'rn': rn,
-    '.exit': () => {
-        process.exit(0);
-    },
     'hash': hash,
     'os': osFn,
     'compress': compress,

@@ -25,6 +25,10 @@ export class FileManager {
   init() {
     stdout.write(messages.welcome + ' ' + this.userName + '!\n');
     stdout.write(messages.curDir);
+    this.function['.exit'] = () => {
+      process.stdout.write(messages.bye + this.userName + '!\n');
+      process.exit(0);
+    }
   }
 
   getHomedir() {

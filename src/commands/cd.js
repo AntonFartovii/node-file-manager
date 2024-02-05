@@ -7,19 +7,19 @@ import {messages} from '../messages.js';
 export async function cd(args) {
         let [src, ...empty] = args;
         if (src === '' || empty.length ) {
-                return stdout.write(messages.inval + '\n')
+                return stdout.write(messages.inval)
         }
 
         const pathToDir = resolve(src);
         try {
                 await access (pathToDir);
         } catch {
-                return stdout.write(messages.fail + '\n')
+                return stdout.write(messages.fail)
         }
 
         let stats = await stat(pathToDir);
         if (stats.isFile()) {
-                return stdout.write(messages.fail + '\n')
+                return stdout.write(messages.fail)
         }
 
         await chdir( pathToDir );

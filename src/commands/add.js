@@ -8,7 +8,7 @@ export const add = async (args) => {
 
     let [from, ...empty] = args;
     if (from.length === 0 || empty.length) {
-        return stdout.write(messages.inval + '\n');
+        return stdout.write(messages.inval);
     }
 
     const filePath = resolve(from);
@@ -17,7 +17,7 @@ export const add = async (args) => {
     } catch {
         const writeStream = createWriteStream(filePath);
         writeStream.on('error', () => {
-            return stdout.write(messages.fail + '\n');
+            return stdout.write(messages.fail);
         })
         writeStream.write('');
         writeStream.end('');
